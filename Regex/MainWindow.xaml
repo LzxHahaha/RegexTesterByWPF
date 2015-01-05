@@ -1,0 +1,31 @@
+﻿<Window x:Class="Regex.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="regxTest" Height="344.057" Width="736.5" WindowStyle="None" 
+		AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown"
+		ResizeMode="NoResize" Style="{StaticResource shadowWindow}" Icon="ico.ico">
+
+	<Border BorderBrush="#FF007ACC" BorderThickness="1">
+		<Grid Background="#2D2D30">
+			<Label x:Name="titleLabel" Content="Regex Tester" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White"/>
+			<Button x:Name="closeButton" Content="x" HorizontalAlignment="Left" Margin="690,0,0,0" VerticalAlignment="Top" Width="20" Height="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{StaticResource ButtonStyle}" Click="closeButton_Click"/>
+			<Button x:Name="miniSizeButton" Content="-" HorizontalAlignment="Left" Margin="665,0,0,0" VerticalAlignment="Top" Width="20" Height="20" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{StaticResource ButtonStyle}" Click="miniSizeButton_Click"/>
+			<Button x:Name="keywordsButton" Content="Regex's Keys" Style="{StaticResource ButtonStyle}" Margin="0,51,578,247" Width="Auto" Foreground="White" Click="keywordsButton_Click"/>
+			<Button x:Name="aboutButton" Content="About" Style="{StaticResource ButtonStyle}" Margin="136,51,494,247" Foreground="White" BorderBrush="White" BorderThickness="1,0,0,0" Click="aboutButton_Click"/>
+			<Label x:Name="label1" Content="Input regular expression: " HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Height="38" Width="302" FontSize="20" Foreground="White"/>
+			<TextBox x:Name="regexTextBox" FontSize="20" VerticalContentAlignment="Center" Margin="10,142,107,143" Text="[Hh]ello [Ww]orld\.?" Background="{x:Null}" BorderBrush="#FF7E7E7E" Foreground="White" SelectionBrush="#FF6800FD"/>
+			<Button x:Name="regexButton" Content="Go" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Margin="612,142,0,0" VerticalAlignment="Top" Width="92" Height="37" Click="regexButton_Click"/>
+			<Label x:Name="label2" Content="Input text:" Margin="10,186,10,103" FontSize="20" Height="Auto" Width="Auto" Foreground="White"></Label>
+			<RichTextBox Name="textRichTextBox" Margin="10,224,10,71" FontSize="20" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="{x:Null}" Foreground="White" BorderBrush="#FF7E7E7E" SelectionBrush="#FF6800FD" KeyUp="textRichTextBox_KeyUp" VerticalScrollBarVisibility="Disabled">
+				<FlowDocument LineHeight="5">
+					<Paragraph>
+						Test. Hello world and hello world.
+					</Paragraph>
+				</FlowDocument>
+			</RichTextBox>
+			<Line Stroke="White"  X2="736.5" Margin="0,279,0,34" RenderTransformOrigin="0.5,0.5"/>
+			<Label Content="COPYRIGHT 2015 LzxHahaha" Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+			   VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="194,279,194,0" Height="43"></Label>
+		</Grid>
+	</Border>
+</Window>
