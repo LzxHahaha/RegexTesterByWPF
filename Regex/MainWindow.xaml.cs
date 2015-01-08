@@ -79,46 +79,25 @@ namespace Regex
 			else
 				content = text.Text;
 
+			TextPointer tempPointer = (textRichTextBox.Document.ContentStart).GetPositionAtOffset(2);
+			int prevIndex = 0;
 			//遍历每个匹配子字符串
 			foreach (Match m in System.Text.RegularExpressions.Regex.Matches(content, regex.ToString()))
 			{
 				if (m.Success)
 				{
-					//获取子字符串起始点
-					TextPointer mStart = GetPointerFromCharOffset(m.Index, textRichTextBox.Document.ContentStart, textRichTextBox.Document);
-					//获取子字符串结束
-					TextPointer mEnd = GetPointerFromCharOffset(m.Length - 1, mStart, textRichTextBox.Document);
+					TextPointer mStart = tempPointer.GetPositionAtOffset(m.Index - prevIndex),
+						mEnd = mStart.GetPositionAtOffset(m.Length);
+
 					//获取子字符串位置
 					TextRange mWord = new TextRange(mStart.GetInsertionPosition(LogicalDirection.Forward), mEnd);
 					//应用样式
 					mWord.ApplyPropertyValue(TextElement.ForegroundProperty, "#569CD6");
+
+					tempPointer = mEnd;
+					prevIndex = m.Index + m.Length - 2;
 				}
 			}
-		}
-
-		//根据匹配字符串的索引获取TextPointer
-		public TextPointer GetPointerFromCharOffset(int charOffset, TextPointer startPointer, FlowDocument document)
-		{
-			TextPointer nextPointer = startPointer;
-			if (charOffset == 0)
-			{
-				return nextPointer;
-			}
-			TextPointer targePointer = nextPointer;
-
-			for (int i = 0; i <= charOffset && nextPointer != null; ++i)
-			{
-				if (nextPointer == document.ContentEnd)
-					return nextPointer;
-
-				targePointer = nextPointer;
-				nextPointer = nextPointer.GetNextInsertionPosition(LogicalDirection.Forward);
-			}
-
-			if (nextPointer != null)
-				return nextPointer;
-			else
-				return targePointer;
 		}
 
 		private void regexButton_Click(object sender, RoutedEventArgs e)
