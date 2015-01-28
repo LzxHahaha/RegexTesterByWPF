@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Regex
 {
@@ -50,18 +51,13 @@ namespace Regex
 
 		private void textRichTextBox_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.Enter)
-			{
-				MessageBox.Show("嗨~再见~");
-				Close();
-			}
 			if (canUse)
 				MatchStart();
 		}
 
 		private void MatchStart()
 		{
-			this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal,
+			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
 				(ThreadStart)delegate ()
 				{
 					MatchStrings();
@@ -70,28 +66,21 @@ namespace Regex
 
 		private void MatchStrings()
 		{
-			//获取richTextBox文本内容
 			TextRange text = new TextRange(textRichTextBox.Document.ContentStart, textRichTextBox.Document.ContentEnd);
 			text.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.White);
-			string content;
-			if (text.Text.Length >= 3)
-				content = text.Text.Remove(text.Text.Length - 2, 1);
-			else
-				content = text.Text;
+			string content = "\n\n" + text.Text.Replace("\r\n", "\n\n");
 
-			TextPointer tempPointer = (textRichTextBox.Document.ContentStart).GetPositionAtOffset(2);
+			TextPointer tempPointer = textRichTextBox.Document.ContentStart;
 			int prevIndex = 0;
-			//遍历每个匹配子字符串
+
 			foreach (Match m in System.Text.RegularExpressions.Regex.Matches(content, regex.ToString()))
 			{
 				if (m.Success)
 				{
 					TextPointer mStart = tempPointer.GetPositionAtOffset(m.Index - prevIndex),
 						mEnd = mStart.GetPositionAtOffset(m.Length);
-
-					//获取子字符串位置
 					TextRange mWord = new TextRange(mStart.GetInsertionPosition(LogicalDirection.Forward), mEnd);
-					//应用样式
+
 					mWord.ApplyPropertyValue(TextElement.ForegroundProperty, "#569CD6");
 
 					tempPointer = mEnd;
