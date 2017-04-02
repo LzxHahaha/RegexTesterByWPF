@@ -36,6 +36,7 @@ namespace Regex
 
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
 		{
+		  if(e.ButtonState==e.LeftButton)
 			DragMove();
 		}
 
